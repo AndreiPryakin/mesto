@@ -34,8 +34,8 @@ openPopup.addEventListener('click', newAtt);
 
 
 function addInfo() {
-  profileTitle.innerHTML = heading.value; //innerHTML - записать текст(код) в парный тег (<h1>) 
-  profileSubtitle.innerHTML = subheading.value; //value - получить текст из input 'имя'
+  profileTitle.textContent = heading.value; //innerHTML - записать текст(код) в парный тег (<h1>) 
+  profileSubtitle.textContent = subheading.value; //value - получить текст из input 'имя'
   event.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
   togglePopup(); //функция для закрытия попапа после успешной отправки формы
   heading.value = ''; //очистить поля после отправки
