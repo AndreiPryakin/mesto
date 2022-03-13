@@ -1,0 +1,3 @@
+.popup__item_heading:focus::placeholder  {
+  color: transparent;
+}

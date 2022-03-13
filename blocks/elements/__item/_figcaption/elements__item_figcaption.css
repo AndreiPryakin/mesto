@@ -1,0 +1,10 @@
+.elements__item_figcaption {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000;
+  margin:  0; 
+  text-overflow: ellipsis; /*Текст обрезается и к концу строки добавляется многоточие*/
+  white-space: nowrap; /*Пробелы не учитываются, переносы строк в коде HTML игнорируются, весь текст отображается одной строкой*/
+  overflow: hidden;
+}

@@ -1,0 +1,25 @@
+.profile__button-edit {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #fff;
+  margin: 0;
+  padding: 0;
+  background: url('../../../images/profile-btn-edit.svg') no-repeat center #000; /*изображение ручки*/
+  position: absolute;
+  right: -43px;
+  top: 17px;
+  cursor: pointer;
+}
+
+.profile__button-edit:hover {
+  opacity: .6;
+} 
+
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  .profile__button-edit {
+    width: 18px;
+    height: 18px;
+    top: 8px;
+    right: -28px;
+  }
+}

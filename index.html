@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+
+<body class="page">
+  
+  <header class="header">
+
+    <img src="./images/header-logo.svg" alt="надпись Место Россия" class="header__logo">
+
+  </header>
+
+  <main class="content">
+
+    <section class="profile">
+      <img src="./images/avatar-image.jpg" alt="Жак-Ив Кусто" class="profile__image">  <!--Аватар-->
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>   
+        <p class="profile__subtitle">Исследователь океана</p>  
+        <button class="profile__button-edit popup-open" type="button" aria-label="открыть окно редактирования"></button> 
+      </div>
+      
+      <button class="profile__button-add"></button> 
+    </section>
+
+    <section class="elements">
+
+      <ul class="elements__items"> <!--карточки с местами-->
+        <li class="elements__item"> <!--отдельная карточка-->
+          <img src="./images/karachaevsk.jpg" alt="карачаевск" class="elements__item_caption">
+          <div class="elements__item_content"> 
+            <h2 class="elements__item_figcaption">Карачаевск</h2>
+            <img src="./images/like.svg" alt="кнопка лайк" class="elements__item_like"> 
+          </div>
+          
+        </li>
+        <li class="elements__item">
+          <img src="./images/elbrus.jpg" alt="эльбрус" class="elements__item_caption">
+          <div class="elements__item_content">
+            <h2 class="elements__item_figcaption">Гора Эльбрус</h2>
+            <img src="./images/like.svg" alt="кнопка лайк" class="elements__item_like">
+          </div>
+        </li>
+        <li class="elements__item">
+          <img src="./images/dombaj.jpg" alt="домбай" class="elements__item_caption">
+          <div class="elements__item_content">
+            <h2 class="elements__item_figcaption">Домбай</h2>
+            <img src="./images/like.svg" alt="кнопка лайк" class="elements__item_like">
+          </div>
+        </li>
+        <li class="elements__item">
+          <img src="./images/elbrus.jpg" alt="эльбрус" class="elements__item_caption">
+          <div class="elements__item_content">
+            <h2 class="elements__item_figcaption">Гора Эльбрус</h2>
+            <img src="./images/like.svg" alt="кнопка лайк" class="elements__item_like">
+          </div>
+        </li>
+        <li class="elements__item">
+          <img src="./images/dombaj.jpg" alt="домбай" class="elements__item_caption">
+          <div class="elements__item_content">
+            <h2 class="elements__item_figcaption">Домбай</h2>
+            <img src="./images/like.svg" alt="кнопка лайк" class="elements__item_like">
+          </div>
+        </li>
+        <li class="elements__item">
+          <img src="./images/karachaevsk.jpg" alt="карачаевск" class="elements__item_caption">
+          <div class="elements__item_content">
+            <h2 class="elements__item_figcaption">Карачаево-Черкессия</h2>
+            <img src="./images/like.svg" alt="кнопка лайк" class="elements__item_like"> 
+          </div>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <h4 class="footer__copyright">&#169; 2022 Mesto Russia</h4>
+  </footer>
+
+  <div class="popup">
+    <div class="popup__container">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form action="" class="popup__form">
+        <fieldset class="popup__input-container"> <!--форма для ввода данных о человеке-->
+          <input type="text" class="popup__item popup__item_heading" placeholder="Username" required> <!--поле для ввода в форме-->
+          <input type="text" class="popup__item popup__item_subheading" placeholder="Userdata" required>
+        </fieldset>
+        <fildset class="popup__handlers">
+          <button type="submit" class="popup__submit" aria-label="сохранить">Сохранить</button> <!--кнопка отправки-->
+        </fildset>
+      </form>
+      <button class="popup__close" type="button" aria-label="закрыть окно редактирования"></button>
+    </div>
+  </div>
+  <script src="./blocks/scripts/index.js"></script>
+</body>

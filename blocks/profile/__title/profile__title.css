@@ -1,0 +1,19 @@
+.profile__title {
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 50px;
+  color: white;
+  margin: 0;
+  max-width: 100%;
+  /*свойства для многоточия в длинной строке*/
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  .profile__title {
+    font-size: 27px;
+    line-height: 121%; 
+  }
+}

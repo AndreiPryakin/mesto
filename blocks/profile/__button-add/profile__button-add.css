@@ -1,0 +1,38 @@
+.profile__button-add {
+  width: 150px;
+  height: 50px;
+  border: 1px solid #fff;
+  margin-left: auto;
+  padding: 0;
+  background: url('../../../images/profile-btn-add.svg') no-repeat center #000; /*изображение плюс*/
+  cursor: pointer;
+}
+
+.profile__button-add:hover {
+  opacity: .6;
+}
+
+@media screen and (min-width: 614px) and (max-width: 1023px) { /*поменьше ширина кнопки плюс*/
+  .profile__button-add {
+    width: 100px;
+  }
+}
+
+@media screen and (min-width: 429px) and (max-width: 614px) {
+  .profile__button-add {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 614px) {
+  .profile__button-add {
+    margin: 32px 0 0 0;
+    background-size: 16px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 428px) {
+  .profile__button-add {
+    width: 100%;
+  }
+}

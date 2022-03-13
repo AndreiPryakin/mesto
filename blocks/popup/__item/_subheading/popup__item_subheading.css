@@ -1,0 +1,8 @@
+.popup__item_subheading {
+  margin-top: 30px;
+}
+
+/*убирает текст в placeholder при наведении*/
+.popup__item_subheading:focus::placeholder  {
+  color: transparent;
+}
