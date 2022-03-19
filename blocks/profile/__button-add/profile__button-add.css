@@ -6,6 +6,7 @@
   padding: 0;
   background: url('../../../images/profile-btn-add.svg') no-repeat center #000; /*изображение плюс*/
   cursor: pointer;
+  transition: opacity .4s ease; /*добавил после первого ревью*/
 }
 
 .profile__button-add:hover {

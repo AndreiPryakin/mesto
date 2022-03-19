@@ -4,6 +4,9 @@
   margin: 5px 0 0 21px; /*сверху и слева*/
   background-image: url(../../../../images/like.svg);
   cursor: pointer;
+  padding: 0;
+  border: none;
+  transition: opacity .4s ease;
 }
 
 .element__like:hover {

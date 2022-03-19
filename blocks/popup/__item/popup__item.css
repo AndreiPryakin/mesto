@@ -4,18 +4,27 @@
   box-sizing: border-box;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   background-color: transparent;
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #000000;
-  padding: 0 0 13px 0;
+  padding: 0 0 9px 0;
 }
 
 /*убирает чёрную рамку у input при наведении*/
 .popup__item:focus {
   outline: 0;
 } 
+
+.popup__item:nth-child(n+2) {
+  margin-top: 30px;
+}
+
+/*убирает текст в placeholder при наведении. Перенёс стиль после первого ревью*/ 
+.popup__item:focus::placeholder {
+  color: transparent;
+}
 
 @media screen and (min-width: 320px) and (max-width: 468px) {
   .popup__item {

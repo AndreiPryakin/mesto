@@ -1,5 +1,5 @@
 .popup__input-container {
-  padding: 54px 0 48px;
+  padding: 48px 0 46px 0; /*поправил после первого ревью*/
   box-sizing: border-box;
   border: 0;
 }

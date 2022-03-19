@@ -9,6 +9,7 @@
   right: -43px;
   top: 17px;
   cursor: pointer;
+  transition: opacity .4s ease; /*добавил после первого ревью*/
 }
 
 .profile__button-edit:hover {
