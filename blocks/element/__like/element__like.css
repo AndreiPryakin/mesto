@@ -2,7 +2,7 @@
   width: 22px;
   height: 19px;
   margin: 5px 0 0 21px; /*сверху и слева*/
-  background-image: url(../../../../images/like.svg);
+  background-image: url(../../../images/like.svg);
   cursor: pointer;
   padding: 0;
   border: none;
