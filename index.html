@@ -85,12 +85,10 @@
   <div class="popup">
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form name="edit-info" class="popup__form">
-        <fieldset class="popup__input-container"> <!--форма для ввода данных о человеке-->
-          <input name="name" type="text" class="popup__item popup__item_textvalue_heading" placeholder="Введите имя" required> <!--поле для ввода в форме-->
-          <input name="description" type="text" class="popup__item popup__item_textvalue_subheading" placeholder="О себе" required>
-        </fieldset>
-        <button type="submit" class="popup__submit" aria-label="сохранить">Сохранить</button> <!--кнопка отправки-->
+      <form name="edit-info" class="form">
+        <input name="name" type="text" class="form__input form__input_textvalue_heading" placeholder="Введите имя" required> <!--поле для ввода в форме-->
+        <input name="description" type="text" class="form__input form__input_textvalue_subheading" placeholder="О себе" required>
+        <button type="submit" class="form__submit" aria-label="сохранить">Сохранить</button> <!--кнопка отправки-->
       </form>
       <button class="popup__close" type="button" aria-label="закрыть окно редактирования"></button>
     </div>

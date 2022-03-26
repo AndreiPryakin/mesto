@@ -1,4 +1,4 @@
-.popup__item {
+.form__input {
   width: 100%;
   border: 0;
   box-sizing: border-box;
@@ -13,21 +13,21 @@
 }
 
 /*убирает чёрную рамку у input при наведении*/
-.popup__item:focus {
+.form__input:focus {
   outline: 0;
 } 
 
-.popup__item:nth-child(n+2) {
+.form__input:nth-child(n+2) {
   margin-top: 30px;
 }
 
 /*убирает текст в placeholder при наведении. Перенёс стиль после первого ревью*/ 
-.popup__item:focus::placeholder {
+.form__input:focus::placeholder {
   color: transparent;
 }
 
 @media screen and (min-width: 320px) and (max-width: 468px) {
-  .popup__item {
+  .form__input {
     padding: 0 0 9px 0;
   }
 }

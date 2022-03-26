@@ -1,8 +1,9 @@
-.popup__submit {
+.form__submit {
   width: 100%;
   background-color: #000000;
   border: 0;
   padding: 14px 0 16px 0; /*убрал высоту после первого ревью*/
+  margin-top: 46px;
   border-radius: 2px;
   color: #fff;
   font-family: 'Inter', Arial, sans-serif; /*добавил доп шрифты после первого ревью*/
@@ -13,14 +14,15 @@
   transition: opacity .4s ease; /*добавил после первого ревью*/
 }
 
-.popup__submit:hover {
+.form__submit:hover {
   opacity: .8;
 }
 
 @media screen and (min-width: 320px) and (max-width: 468px) {
-  .popup__submit {
+  .form__submit {
     font-size: 14px;
     line-height: 17px;
     padding-bottom: 14px;  /*убрал высоту после первого ревью*/
+    margin-top: 45px;
   }
 }

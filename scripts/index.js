@@ -7,10 +7,10 @@ let profileInfo = profile.querySelector('.profile__info');
 let profileTitle = profile.querySelector('.profile__title'); /*Имя в профиле*/
 let profileSubtitle = profile.querySelector('.profile__subtitle'); /*Кто есть в профиле*/
 
-let heading = popup.querySelector('.popup__item_textvalue_heading'); //имя в попап
-let subheading = popup.querySelector('.popup__item_textvalue_subheading'); //данные в попап
-let submitButton = popup.querySelector('.popup__submit'); //кнопка Сохранить в попап
-let popupForm = popup.querySelector('.popup__form'); //форма отправки
+let heading = popup.querySelector('.form__input_textvalue_heading'); //имя в попап
+let subheading = popup.querySelector('.form__input_textvalue_subheading'); //данные в попап
+let submitButton = popup.querySelector('.form__submit'); //кнопка Сохранить в попап
+let popupForm = popup.querySelector('.form'); //форма отправки
 
 //открытие попапа 
 openPopup.addEventListener('click', function() {
