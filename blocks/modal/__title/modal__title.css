@@ -1,0 +1,15 @@
+.modal__title {
+  font-family: 'Inter', Arial, sans-serif; /*добавил доп шрифты после первого ревью*/
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: 0;
+}
+
+@media screen and (min-width: 320px) and (max-width: 468px) {
+  .modal__title {
+    font-size: 18px;
+    line-height: 21.8px;
+  }
+}
