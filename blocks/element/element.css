@@ -4,4 +4,8 @@
   line-height: 0;
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
+
+  width: fit-content;
 }
+

@@ -1,5 +1,5 @@
 .element__content {
   display: flex;
   justify-content: space-between;
-  padding: 0 20px 0 21px; 
+  padding: 25px 20px 0 21px; 
 }

@@ -29,60 +29,18 @@
     </section>
 
     <section class="elements">
-
       <ul class="elements__items"> <!--карточки с местами-->
-        <li class="element"> <!--отдельная карточка-->
-          <img src="./images/karachaevsk.jpg" alt="карачаевск" class="element__caption">
-          <div class="element__content"> 
-            <h2 class="element__figcaption">Карачаевск</h2>
-            <button class="element__like" type="button" aria-label="кнопка лайк"></button> 
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elbrus.jpg" alt="эльбрус" class="element__caption">
-          <div class="element__content">
-            <h2 class="element__figcaption">Гора Эльбрус</h2>
-            <button class="element__like" type="button" aria-label="кнопка лайк"></button> 
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/dombaj.jpg" alt="домбай" class="element__caption">
-          <div class="element__content">
-            <h2 class="element__figcaption">Домбай</h2>
-            <button class="element__like" type="button" aria-label="кнопка лайк"></button> 
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elbrus.jpg" alt="эльбрус" class="element__caption">
-          <div class="element__content">
-            <h2 class="element__figcaption">Гора Эльбрус</h2>
-            <button class="element__like" type="button" aria-label="кнопка лайк"></button> 
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/dombaj.jpg" alt="домбай" class="element__caption">
-          <div class="element__content">
-            <h2 class="element__figcaption">Домбай</h2>
-            <button class="element__like" type="button" aria-label="кнопка лайк"></button> 
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/karachaevsk.jpg" alt="карачаевск" class="element__caption">
-          <div class="element__content">
-            <h2 class="element__figcaption">Карачаево-Черкессия</h2>
-            <button class="element__like" type="button" aria-label="кнопка лайк"></button> <!--изменил img на button после первого ревью-->
-          </div>
-        </li>
+        
       </ul>
     </section>
-
+    
   </main>
 
   <footer class="footer">
     <p class="footer__copyright">&#169; 2022 Mesto Russia</p> <!--изменил h3 на p после первого ревью-->
   </footer>
 
-  <div class="popup">
+  <div class="popup modal">
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form name="edit-info" class="form">
@@ -90,9 +48,48 @@
         <input name="description" type="text" class="form__input form__input_type_subheading" placeholder="О себе" required>
         <button type="submit" class="form__submit" aria-label="сохранить">Сохранить</button> <!--кнопка отправки-->
       </form>
-      <button class="popup__close" type="button" aria-label="закрыть окно редактирования"></button>
+      <button class="modal__close" type="button" aria-label="закрыть окно редактирования"></button>
     </div>
   </div>
+  
+  <!--попап для добавления карточки-->
+  <div class="popup-item modal">
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3> <!--ИСПРАВИТЬ КЛАСС-->
+      <form name="edit-info" class="form">
+        <input name="title" type="text" class="form__input form__input_type_title" placeholder="Название" required> <!--поле для ввода в форме-->
+        <input name="link" type="text" class="form__input form__input_type_link" placeholder="Ссылка на картинку" required>
+        <button type="submit" class="form__submit" aria-label="сохранить">Создать</button> <!--кнопка отправки-->
+      </form>
+      <button class="modal__close" type="button" aria-label="закрыть окно редактирования"></button>
+    </div>
+  </div>
+
+  <!--попап для открытия изображения-->
+  <div class="popup-img modal">
+    <figure class="popup-img__container">
+      <input type="image" src="./images/Close-Icon.svg" class="modal__close" alt="кнопка закрытия">
+      <img src="" alt="" class="popup-img__image">
+      <figcaption class="popup-img__figcaption"></figcaption>
+    </figure>
+    
+  </div>
+
+  <template id="elementTemplate">
+    <li class="element"> <!--отдельная карточка-->
+      <img src="" alt="изображение карточки" class="element__caption">
+      <input type="image" src="./images/Trash.svg" class="element__trash" alt="кнопка удаления карточки">
+      <!--<button class="element__trash" type="button" aria-label="корзина"><img src="./images/Trash.svg" alt=""></button>-->
+      <div class="element__content"> 
+        <h2 class="element__figcaption"></h2>
+        <button class="element__like" type="button" aria-label="кнопка лайк"></button>
+      </div>
+    </li>
+  </template>
+
   <script src="./scripts/index.js"></script>
+
 </body>
 </html>
+
+     

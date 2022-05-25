@@ -1,4 +1,5 @@
-.popup {
+.popup-item {
+  /*
   opacity: 0;
   visibility: hidden;
   display: flex;
@@ -11,4 +12,5 @@
   align-items: center;
   justify-content: center;
   transition: all .5s ease 0s;
+  */
 }

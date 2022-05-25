@@ -1,0 +1,11 @@
+.popup-img__figcaption {
+  color: white;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  max-width: 291px;
+  text-overflow: ellipsis; /*Текст обрезается и к концу строки добавляется многоточие*/
+  white-space: nowrap; /*Пробелы не учитываются, переносы строк в коде HTML игнорируются, весь текст отображается одной строкой*/
+  overflow: hidden;
+  margin-top: 10px;
+}
