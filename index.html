@@ -40,35 +40,35 @@
     <p class="footer__copyright">&#169; 2022 Mesto Russia</p> <!--изменил h3 на p после первого ревью-->
   </footer>
 
-  <div class="popup modal">
-    <div class="modal__container">
-      <h3 class="modal__title">Редактировать профиль</h3>
-      <form name="edit-info" class="form">
+  <div class="popup-profile popup">
+    <div class="popup__container">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form name="profile-form" class="form">
         <input name="name" type="text" class="form__input form__input_type_heading" placeholder="Введите имя" required> <!--поле для ввода в форме-->
         <input name="description" type="text" class="form__input form__input_type_subheading" placeholder="О себе" required>
         <button type="submit" class="form__submit" aria-label="сохранить">Сохранить</button> <!--кнопка отправки-->
       </form>
-      <button class="modal__close" type="button" aria-label="закрыть окно редактирования"></button>
+      <button class="popup__close" type="button" aria-label="закрыть окно редактирования"></button>
     </div>
   </div>
   
   <!--попап для добавления карточки-->
-  <div class="popup-item modal">
-    <div class="modal__container">
-      <h3 class="modal__title">Новое место</h3> <!--ИСПРАВИТЬ КЛАСС-->
-      <form name="edit-info" class="form">
+  <div class="popup-item popup">
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3> 
+      <form name="card-form" class="form">
         <input name="title" type="text" class="form__input form__input_type_title" placeholder="Название" required> <!--поле для ввода в форме-->
         <input name="link" type="text" class="form__input form__input_type_link" placeholder="Ссылка на картинку" required>
         <button type="submit" class="form__submit" aria-label="сохранить">Создать</button> <!--кнопка отправки-->
       </form>
-      <button class="modal__close" type="button" aria-label="закрыть окно редактирования"></button>
+      <button class="popup__close" type="button" aria-label="закрыть окно редактирования"></button>
     </div>
   </div>
 
   <!--попап для открытия изображения-->
-  <div class="popup-img modal">
+  <div class="popup-img popup">
     <figure class="popup-img__container">
-      <input type="image" src="./images/Close-Icon.svg" class="modal__close" alt="кнопка закрытия">
+      <input type="image" src="./images/Close-Icon.svg" class="popup__close" alt="кнопка закрытия">
       <img src="#" alt="выбранное изображение" class="popup-img__image">
       <figcaption class="popup-img__figcaption"></figcaption>
     </figure>

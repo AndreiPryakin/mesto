@@ -1,19 +1,16 @@
 const body = document.querySelector('.page');
-const popup = document.querySelector('.popup');
-const openPopup = document.querySelector('.profile__button-edit');
-//const closePopup = popup.querySelector('.popup__close');
+const profilePopup = document.querySelector('.popup-profile');
+const profileOpenBtn = document.querySelector('.profile__button-edit');
 
 const profile = document.querySelector('.profile');
 const profileInfo = profile.querySelector('.profile__info');
 const profileTitle = profile.querySelector('.profile__title'); /*Имя в профиле*/
 const profileSubtitle = profile.querySelector('.profile__subtitle'); /*Кто есть в профиле*/
 
-const heading = popup.querySelector('.form__input_type_heading'); //имя в попап
-const subheading = popup.querySelector('.form__input_type_subheading'); //данные в попап
-const submitButton = popup.querySelector('.form__submit'); //кнопка Сохранить в попап
-const popupForm = document.forms[0];
-//let popupForm = popup.querySelector('.form'); //форма отправки
-const modals = document.querySelectorAll('.modal'); //все попапы
+const headingInputProfile = profilePopup.querySelector('.form__input_type_heading'); //имя в попап
+const subheadingInputProfile = profilePopup.querySelector('.form__input_type_subheading'); //данные в попап
+const profileForm = document.forms['profile-form'];
+const popups = document.querySelectorAll('.popup'); //все попапы
 
 //функция обнуления отступа для скролла после закрытия попапа
 
@@ -25,53 +22,42 @@ function unlockBody() {
 //общая функция закрытия попапа
 
 function closePopup(currentPopup) {
-  currentPopup.style.opacity = '0';
-  currentPopup.style.visibility = 'hidden';
+  currentPopup.classList.remove('popup_opened')
   setTimeout(unlockBody, 500); //отложенный запуск 
 }
 
 //открытие попапа 
 
-openPopup.addEventListener('click', function() {
-  openPopupFunc(popup);
-  heading.value = profileTitle.textContent;
-  subheading.value = profileSubtitle.textContent;
+profileOpenBtn.addEventListener('click', function() {
+  openPopup(profilePopup);
+  headingInputProfile.value = profileTitle.textContent;
+  subheadingInputProfile.value = profileSubtitle.textContent;
 }); 
 
-//новая функция закрытия попапа с одним классом у всех попапов и у всех кнопок
+//новая функция закрытия попапа, объединяющая крестики и оверлей с универсальными классами 
 
-const closePopupIcons = document.querySelectorAll('.modal__close'); //все кнопки закрытия
-
-for (let index = 0; index < closePopupIcons.length; index++ ) {
-  const el = closePopupIcons[index];
-  el.addEventListener('click', () => {
-    closePopup(el.closest('.modal'));
-  });
-}
-
-//закрытие любого попапа при клике за границей формы
-
-for (let index = 0; index < modals.length; index++) {
-  const el = modals[index];
-  el.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget) {
-      closePopup(el);
-    }
-  });
-}
+popups.forEach((popup) => {  //метод forEach берет каждый попап и выполняет для него ленточную функцию
+  popup.addEventListener('mousedown', (evt) => {  //слушатель для попапа с кликом мыши над элементом и функция для этого действия
+      if (evt.target.classList.contains('popup_opened')) {  //если элемент, над которым кликнули мышью, содержит класс 'popup_opened'
+          closePopup(popup) //выполнить функцию закрытия попапа
+          
+      }
+      if (evt.target.classList.contains('popup__close')) { //нужно использовать событие 'mousedown', а не click, чтобы не закрыть случайно попап по оверлею, 
+        closePopup(popup)                                  //если нажать мышкой внутри попапа, а потом, не разжимая, передвинуть курсор на оверлей. Такой баг появляется с событием click
+      }
+  })
+}) 
 
 //функция для отправки формы с информацией о человеке
 
 function addInfo(e) {
-  profileTitle.textContent = heading.value; //записать текст(код) в парный тег (<h1>) 
-  profileSubtitle.textContent = subheading.value; //value - получить текст из input 'имя'
+  profileTitle.textContent = headingInputProfile.value; //записать текст(код) в парный тег (<h1>) 
+  profileSubtitle.textContent = subheadingInputProfile.value; //value - получить текст из input 'имя'
   e.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
-  closePopup(popup); //функция для закрытия попапа после успешной отправки формы
-  heading.value = ''; //очистить поля после отправки
-  subheading.value = '';
+  closePopup(profilePopup); //функция для закрытия попапа после успешной отправки формы
 } 
 
-popupForm.addEventListener('submit', addInfo); //отправка формы с информацией о человеке
+profileForm.addEventListener('submit', addInfo); //отправка формы с информацией о человеке
 
 //массив карточек по умолчанию
 const initialCards = [
@@ -106,27 +92,36 @@ const elementTemplate = document.querySelector('#elementTemplate').content; //к
 const elementItems = document.querySelector('.elements__items'); //список элементов-карточек 'ul'
 
 //функция для создания карточки с данными из элемента массива
-function createCard(el) {
+function getCard(item) {
 
-  const element = elementTemplate.querySelector('.element').cloneNode(true); //клонирует содержимое template для создания карточки (заготовку карточки)
-  const nameCard = element.querySelector('.element__figcaption'); //заголовок карточек 
-  const imgCard = element.querySelector('.element__caption'); //изображение в карточке
-  
-  nameCard.textContent = el.name; //передает значение поля 'name' из элемента массива
-  imgCard.src = el.link;
+  const cardElement = elementTemplate.querySelector('.element').cloneNode(true); //клонирует содержимое template для создания карточки (заготовку карточки)
+  const nameCard = cardElement.querySelector('.element__figcaption'); //заголовок карточек 
+  const cardImage = cardElement.querySelector('.element__caption'); //изображение в карточке
+
+  nameCard.textContent = item.name; //передает значение поля 'name' из элемента массива
+  cardImage.src = item.link;
+  cardImage.alt = item.name; 
   
   //слушатель для кнопки лайка
-  element.querySelector('.element__like').addEventListener('click', (evt) => {
+  cardElement.querySelector('.element__like').addEventListener('click', (evt) => {
     evt.target.classList.toggle('element__like_active');
   });
   //слушатель для корзины
-  const trashButton = element.querySelector('.element__trash'); //кнопка корзина
+  const trashButton = cardElement.querySelector('.element__trash'); //кнопка корзина
   trashButton.addEventListener('click', () => {
       trashButton.closest('.element').remove(); //closest выбирает родительский элемент, remove удаляет его 
     });
   //слушатель для попапа с картинкой
-  imgCard.addEventListener('click', showImage);
+  cardImage.addEventListener('click', () => showImage(item));  //ленточная функция нужна для передачи параметров в функцию showImage
 
+  return cardElement
+}; 
+
+
+
+//функция для добавления карточки в DOM
+function createCard(el) {
+  const element = getCard(el)
   elementItems.prepend(element); //добавление карточки 'li' в список 'ul'
 };
 
@@ -148,52 +143,42 @@ function lockBody() {
 }
 
 //функция для открытия попапа по клику
-function openPopupFunc(element) {
+function openPopup(currentPopup) {
   lockBody();
-  element.style.opacity = '1';
-  element.style.visibility = 'visible';
+  currentPopup.classList.add('popup_opened')
 }
-
-//console.log(window.innerWidth);
-//console.log(parseFloat(style.marginRight) + parseFloat(style.width) + parseFloat(style.marginLeft));
-//console.log(paddingValue); 
 
 //popup для показа изображения
 const popupImg = document.querySelector('.popup-img'); //сам попап
 const bigImage = popupImg.querySelector('.popup-img__image'); //большое изображение 
 const popupImgFigcaption = popupImg.querySelector('.popup-img__figcaption'); //подпись под большим изображением
-//const popupImgClose = popupImg.querySelector('.popup-img__close'); //кнопка закрытия попапа
 
-//функция открытия попапа с большим изображением
-function showImage() {
-  openPopupFunc(popupImg);
-  bigImage.src = this.src;
-  const parrent = this.closest('.element'); //родительский элемент выбранной картинки
-  const figcaption = parrent.querySelector('.element__figcaption'); //название карточки выбранной картинки
-  popupImgFigcaption.textContent = figcaption.textContent; //добавляет название карточки в подпись попап
+//новая функция открытия попапа с большим изображением
+function showImage(el) { //принимает ссылку и название изображения 
+  openPopup(popupImg); 
+  bigImage.src = el.link; //заменил evt.target
+  bigImage.alt = el.name + '. Иллюстрация на весь экран'; 
+  popupImgFigcaption.textContent = el.name;
 };
 
-const formCard = document.forms[1]; //форма добавления карточки с названием и картинкой
+const cardForm = document.forms['card-form']; //форма добавления карточки с названием и картинкой
 const buttonPlus = document.querySelector('.profile__button-add'); //кнопка плюс для открытия попапа карточки
 const popupItem = document.querySelector('.popup-item'); //попап для добавления новой карточки
-//const popupItemClose = document.querySelector('.popup-item__close'); //кнопка закрытия попапа карточки
-const titleCard = formCard.title; //название карточки при добавлении в форме
-const linkCard = formCard.link; //ссылка на картинку при добавлении в форме
+const titleCard = cardForm.title; //название карточки при добавлении в форме
+const linkCard = cardForm.link; //ссылка на картинку при добавлении в форме
 
 //клик по кнопке плюс для открытия попапа
 buttonPlus.addEventListener('click', function() {
-  openPopupFunc(popupItem);
-  titleCard.value = ''; //очистить поля перед открытием
-  linkCard.value = '';
+  openPopup(popupItem);
 });
 
-let newEl = {name: '', link: ''};
 //отправка формы для новой карточки
-formCard.addEventListener('submit', (event) => {
+cardForm.addEventListener('submit', (event) => {
+  const newEl = {};
   newEl.name = titleCard.value;
   newEl.link = linkCard.value;
   createCard(newEl); 
   event.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
+  event.target.reset(); //Метод HTMLFormElement.reset() позволяет легко произвести очистку форму после отправки или вернуть до значений по умолчанию
   closePopup(popupItem);
 });
-
