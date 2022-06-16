@@ -10,6 +10,7 @@
   line-height: 17px;
   color: #000000;
   padding: 0 0 9px 0;
+  position: relative; /*для абсолютного позиционирования span с ошибкой*/
 }
 
 /*убирает чёрную рамку у input при наведении*/

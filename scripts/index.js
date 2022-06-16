@@ -29,9 +29,12 @@ function closePopup(currentPopup) {
 //открытие попапа 
 
 profileOpenBtn.addEventListener('click', function() {
-  openPopup(profilePopup);
+  
   headingInputProfile.value = profileTitle.textContent;
   subheadingInputProfile.value = profileSubtitle.textContent;
+  const formElement = profilePopup.querySelector('form');
+  enableValidation(profileForm, config); //проверка валидации формы при открытии попапа
+  openPopup(profilePopup);
 }); 
 
 //новая функция закрытия попапа, объединяющая крестики и оверлей с универсальными классами 
@@ -54,6 +57,7 @@ function addInfo(e) {
   profileTitle.textContent = headingInputProfile.value; //записать текст(код) в парный тег (<h1>) 
   profileSubtitle.textContent = subheadingInputProfile.value; //value - получить текст из input 'имя'
   e.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
+
   closePopup(profilePopup); //функция для закрытия попапа после успешной отправки формы
 } 
 
@@ -117,8 +121,6 @@ function getCard(item) {
   return cardElement
 }; 
 
-
-
 //функция для добавления карточки в DOM
 function createCard(el) {
   const element = getCard(el)
@@ -145,7 +147,7 @@ function lockBody() {
 //функция для открытия попапа по клику
 function openPopup(currentPopup) {
   lockBody();
-  currentPopup.classList.add('popup_opened')
+  currentPopup.classList.add('popup_opened');
 }
 
 //popup для показа изображения
@@ -170,6 +172,8 @@ const linkCard = cardForm.link; //ссылка на картинку при до
 //клик по кнопке плюс для открытия попапа
 buttonPlus.addEventListener('click', function() {
   openPopup(popupItem);
+  const formElement = popupItem.querySelector('form'); 
+  enableValidation(cardForm, config);
 });
 
 //отправка формы для новой карточки
@@ -181,4 +185,12 @@ cardForm.addEventListener('submit', (event) => {
   event.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
   event.target.reset(); //Метод HTMLFormElement.reset() позволяет легко произвести очистку форму после отправки или вернуть до значений по умолчанию
   closePopup(popupItem);
+});
+
+//закрытие попапа по Esc
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
+    closePopup(activePopup);
+  }
 });

@@ -12,6 +12,7 @@
   text-align: center;
   cursor: pointer;
   transition: opacity .4s ease; /*добавил после первого ревью*/
+  border: 1px solid transparent;
 }
 
 .form__submit:hover {
