@@ -24,6 +24,11 @@ function unlockBody() {
 function closePopup(currentPopup) {
   currentPopup.classList.remove('popup_opened')
   setTimeout(unlockBody, 500); //отложенный запуск 
+  document.removeEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closePopup(currentPopup);
+    }
+  });
 }
 
 //открытие попапа 
@@ -148,6 +153,14 @@ function lockBody() {
 function openPopup(currentPopup) {
   lockBody();
   currentPopup.classList.add('popup_opened');
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      //const activePopup = document.querySelector('.popup_opened');
+      //closePopup(activePopup);
+      closePopup(currentPopup);
+    }
+  });
+  
 }
 
 //popup для показа изображения
