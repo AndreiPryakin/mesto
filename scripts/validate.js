@@ -60,9 +60,15 @@ const config = {
 }
 
 
-function enableValidation(formElement, config) {
-  formElement.addEventListener('submit', function(evt) {
-    evt.preventDefault(); //отменяем перезагрузку страницы при сабмите
-  }); 
+//масштабирует проверку на валидность для всех форм
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.form')); //массив из всех форм в документе
+  formList.forEach((formElement) => { 
+    formElement.addEventListener('submit', function(evt) {
+      evt.preventDefault(); //отменяем перезагрузку страницы при сабмите
+    }); 
     setEventListeners(formElement, config); //проходим по массиву и вешаем слушатели на все инпуты каждой форме
+  });
 }
+
+enableValidation();
