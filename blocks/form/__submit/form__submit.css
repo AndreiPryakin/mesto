@@ -1,7 +1,6 @@
 .form__submit {
   width: 100%;
   background-color: #000000;
-  border: 0;
   padding: 14px 0 16px 0; /*убрал высоту после первого ревью*/
   margin-top: 46px;
   border-radius: 2px;
