@@ -61,7 +61,7 @@ const config = {
 
 
 //масштабирует проверку на валидность для всех форм
-function enableValidation() {
+function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll('.form')); //массив из всех форм в документе
   formList.forEach((formElement) => { 
     formElement.addEventListener('submit', function(evt) {
@@ -71,4 +71,4 @@ function enableValidation() {
   });
 }
 
-enableValidation();
+enableValidation(config);
