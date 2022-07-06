@@ -197,3 +197,5 @@ cardForm.addEventListener('submit', (event) => {
   toggleButtonState(cardForm, config); //деактивирует кнопку сабмита после отправки формы
   closePopup(popupItem); 
 });
+
+//проверка Гита
