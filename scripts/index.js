@@ -1,3 +1,30 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]; 
+
 const body = document.querySelector('.page');
 const profilePopup = document.querySelector('.popup-profile');
 const profileOpenBtn = document.querySelector('.profile__button-edit');
@@ -10,6 +37,14 @@ const headingInputProfile = profilePopup.querySelector('.form__input_type_headin
 const subheadingInputProfile = profilePopup.querySelector('.form__input_type_subheading'); //данные в попап
 const profileForm = document.forms['profile-form'];
 const popups = document.querySelectorAll('.popup'); //все попапы
+const cardsContainer = document.querySelector('.elements__items');
+
+//popup для показа изображения
+const cardForm = document.forms['card-form']; //форма добавления карточки с названием и картинкой
+const buttonPlus = document.querySelector('.profile__button-add'); //кнопка плюс для открытия попапа карточки
+const popupItem = document.querySelector('.popup-item'); //попап для добавления новой карточки
+const titleCard = cardForm.title; //название карточки при добавлении в форме
+const linkCard = cardForm.link; //ссылка на картинку при добавлении в форме
 
 const ESC_CODE = 'Escape';
 
@@ -90,10 +125,9 @@ profileForm.addEventListener('submit', addInfo); //отправка формы �
 
 function lockBody() {
 
-  const style = window.getComputedStyle(body, null); //ширина body вместе с padding и margin
-  //значение ширины скролла, parseFloat оставляет числовое значение
-  const paddingValue = window.innerWidth - (parseFloat(style.marginRight) + parseFloat(style.width) + parseFloat(style.marginLeft)) + 'px';  
-    
+  const pageWidth = document.documentElement.scrollWidth; //ширина веб-страницы без ширины полосы прокрутки
+  const paddingValue = window.innerWidth - pageWidth + 'px'; //значение ширины скролла
+
   body.style.overflow = 'hidden'; //запрещает скроллить страницу за попапом
   if (window.innerWidth > 1023) {
     body.style.paddingRight = paddingValue; //добавляет паддинг странице чтобы не было сдвига при открытии попапа с условием для ширины окна
@@ -101,6 +135,7 @@ function lockBody() {
     body.style.paddingRight = 0;
   }
 }
+
 //функция для открытия попапа по клику
 function openPopup(currentPopup) {
   lockBody();
@@ -108,32 +143,32 @@ function openPopup(currentPopup) {
   document.addEventListener('keydown', closeByEsc);  
 }
 
-//popup для показа изображения
-const cardForm = document.forms['card-form']; //форма добавления карточки с названием и картинкой
-const buttonPlus = document.querySelector('.profile__button-add'); //кнопка плюс для открытия попапа карточки
-const popupItem = document.querySelector('.popup-item'); //попап для добавления новой карточки
-const titleCard = cardForm.title; //название карточки при добавлении в форме
-const linkCard = cardForm.link; //ссылка на картинку при добавлении в форме
-
 //клик по кнопке плюс для открытия попапа
 buttonPlus.addEventListener('click', function() {
   openPopup(popupItem);
 });
+
+function returnNewCard(el, selector) {
+  // Создадим экземпляр карточки
+  const card = new Card(el, selector);
+  // Создаём карточку и возвращаем её
+  return card.generateCard();
+}
 
 //отправка формы для новой карточки
 cardForm.addEventListener('submit', (event) => {
   const newEl = {};
   newEl.name = titleCard.value;
   newEl.link = linkCard.value;
-  // Создадим экземпляр карточки
-  const card = new Card(newEl, '#elementTemplate');
-  // Создаём карточку и возвращаем наружу
-  const cardElement = card.generateCard();
-
   // Добавляем в DOM
-  document.querySelector('.elements__items').prepend(cardElement);
+  cardsContainer.prepend(returnNewCard(newEl, '#elementTemplate'));
   event.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
   event.target.reset(); //Метод HTMLFormElement.reset() позволяет легко произвести очистку форму после отправки или вернуть до значений по умолчанию
   formCard.toggleButtonState(cardForm); //деактивирует кнопку сабмита после отправки формы
   closePopup(popupItem); 
 });
+
+// добавление карточек
+initialCards.forEach((item) => {
+  cardsContainer.append(returnNewCard(item, '#elementTemplate'));
+}); 
