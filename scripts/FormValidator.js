@@ -47,6 +47,13 @@ class FormValidator {
     }
   }
 
+  resetError() {
+    this._inputList.forEach((input) => {
+      this._hideInputError(input);                 
+    });
+    this.toggleButtonState();
+  }
+
   _showInputError(errorMessage, inputElement) {
     inputElement.classList.add(this._config.inputErrorClass); //добавить красноё подчёркивание
     const errorElement = this._form.querySelector(`.${inputElement.name}-error`); //берём span по имени инпута

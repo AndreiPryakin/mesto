@@ -93,7 +93,7 @@ function closePopup(currentPopup) {
 profileOpenBtn.addEventListener('click', function() {
   headingInputProfile.value = profileTitle.textContent;
   subheadingInputProfile.value = profileSubtitle.textContent;
-  formProfile.toggleButtonState(profileForm);
+  formProfile.resetError(profileForm); //сброс ошибок инпута при открытии формы
   openPopup(profilePopup);
 }); 
 
