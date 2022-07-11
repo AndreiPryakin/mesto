@@ -25,7 +25,6 @@ const initialCards = [
   }
 ]; 
 
-const body = document.querySelector('.page');
 const profilePopup = document.querySelector('.popup-profile');
 const profileOpenBtn = document.querySelector('.profile__button-edit');
 
@@ -50,7 +49,8 @@ const ESC_CODE = 'Escape';
 
 export {openPopup};
 import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js'
+import {FormValidator} from './FormValidator.js';
+import {Lock} from './Lock.js'
 
 const config = {
   inputElement: '.form__input',
@@ -64,13 +64,7 @@ const formProfile = new FormValidator(config, 'profile-form');
 formProfile.enableValidation(); 
 const formCard = new FormValidator(config, 'card-form');
 formCard.enableValidation();
-
-//функция обнуления отступа для скролла после закрытия попапа
-
-function unlockBody() {
-  body.style.overflow = '';
-  body.style.paddingRight = 0;
-}
+const LockFunction = new Lock();
 
 //функция закрытия попапа по нажатию Esc
 function closeByEsc(evt) {
@@ -84,7 +78,8 @@ function closeByEsc(evt) {
 
 function closePopup(currentPopup) {
   currentPopup.classList.remove('popup_opened')
-  setTimeout(unlockBody, 500); //отложенный запуск 
+  //setTimeout(unlockBody, 500); //отложенный запуск 
+  setTimeout(LockFunction.BodyUnlock(), 500); //отложенный запуск 
   document.removeEventListener('keydown', closeByEsc);
 }
 
@@ -103,7 +98,6 @@ popups.forEach((popup) => {  //метод forEach берет каждый поп
   popup.addEventListener('mousedown', (evt) => {  //слушатель для попапа с кликом мыши над элементом и функция для этого действия
       if (evt.target.classList.contains('popup_opened')) {  //если элемент, над которым кликнули мышью, содержит класс 'popup_opened'
           closePopup(popup) //выполнить функцию закрытия попапа
-          
       }
       if (evt.target.classList.contains('popup__close')) { //нужно использовать событие 'mousedown', а не click, чтобы не закрыть случайно попап по оверлею, 
         closePopup(popup)                                  //если нажать мышкой внутри попапа, а потом, не разжимая, передвинуть курсор на оверлей. Такой баг появляется с событием click
@@ -117,28 +111,14 @@ function addInfo(e) {
   profileTitle.textContent = headingInputProfile.value; //записать текст(код) в парный тег (<h1>) 
   profileSubtitle.textContent = subheadingInputProfile.value; //value - получить текст из input 'имя'
   e.preventDefault(); //обработчик чтобы страница не перезагружалась после отправки формы
-
   closePopup(profilePopup); //функция для закрытия попапа после успешной отправки формы
 } 
 
 profileForm.addEventListener('submit', addInfo); //отправка формы с информацией о человеке
 
-function lockBody() {
-
-  const pageWidth = document.documentElement.scrollWidth; //ширина веб-страницы без ширины полосы прокрутки
-  const paddingValue = window.innerWidth - pageWidth + 'px'; //значение ширины скролла
-
-  body.style.overflow = 'hidden'; //запрещает скроллить страницу за попапом
-  if (window.innerWidth > 1023) {
-    body.style.paddingRight = paddingValue; //добавляет паддинг странице чтобы не было сдвига при открытии попапа с условием для ширины окна
-  } else {
-    body.style.paddingRight = 0;
-  }
-}
-
 //функция для открытия попапа по клику
 function openPopup(currentPopup) {
-  lockBody();
+  LockFunction.BodyLock();
   currentPopup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);  
 }
