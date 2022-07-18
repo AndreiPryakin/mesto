@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Данный проект является продолжением изучения web-разработки, а именно настоящего языка программирования - JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreiPryakin/mesto.git"
+  },
+  "author": "Andrei Pryakin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreiPryakin/mesto/issues"
+  },
+  "homepage": "https://github.com/AndreiPryakin/mesto#readme"
+}
