@@ -11,9 +11,10 @@ export default class Section {
                 this._renderer(item);
             });
         } else {
-            this._renderer(item);
+            this._renderer(this._renderedItems);
         }
         
+              
     }
 
     addItem(element) {

@@ -113,18 +113,17 @@ profileOpenBtn.addEventListener('click', function() { //слушатель дл�
   popupProfile.open();
 }); 
 
-//открытие попапа НОВОЙ КАРТОЧКИ с помощью классов
-const cardPopup = new PopupWithForm('.popup-item', function(formValues) {
-    console.log(formValues);
+
+//открытие попапа НОВОЙ КАРТОЧКИ с помощью классов 
+const cardPopup = new PopupWithForm('.popup-item', function(formValues) {  //и коллбэк сабмита
+
     const newCard = new Section({ 
       data: formValues,
       renderer: () => {
-        /*
-      const card = new Card(item, '#elementTemplate');
-      console.log(card);
-      const cardElement = card.generateCard(); */
-      this.addItem(returnNewCard(item, '#elementTemplate'));
-      console.log(cardElement);
+
+        formValues.name = formValues.title;
+         
+        newCard.addItem(returnNewCard(formValues, '#elementTemplate'));
       }
     },
     '.elements__items' // вынести в переменную
