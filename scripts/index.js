@@ -50,7 +50,12 @@ const ESC_CODE = 'Escape';
 export {openPopup};
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
-import {Lock} from './Lock.js'
+import {Lock} from './Lock.js';
+//import {Popup} from './Popup.js';
+import {PopupWithForm} from './PopupWithForm.js';
+//import {PopupWithImage} from './PopupWithImage.js';
+import UserInfo from './UserInfo.js';
+import Section from './Section.js';
 
 const config = {
   inputElement: '.form__input',
@@ -83,17 +88,62 @@ function closePopup(currentPopup) {
   document.removeEventListener('keydown', closeByEsc);
 }
 
-//открытие попапа 
+const configUserInfo = {
+  userNameSelector: '.profile__title',
+  userInfoSelector: '.profile__subtitle'
+};
 
-profileOpenBtn.addEventListener('click', function() {
-  headingInputProfile.value = profileTitle.textContent;
-  subheadingInputProfile.value = profileSubtitle.textContent;
+const profileInfo = new UserInfo(configUserInfo);
+
+//открытие попапа ПРОФИЛЯ с помощью классов
+// по клику на кнопку редактирования создаётся новый объект по классу PopupWithForm, вторым аргументов записан коллбэк: запускается метод setUserInfo, 
+//в который попадает объект со значениями инпутов формы при отправке
+
+const popupProfile = new PopupWithForm('.popup-profile', (formData) => {
+  profileInfo.setUserInfo(formData);
+});
+
+popupProfile.setEventListeners(); //добавление слушателей для закрытия попапа
+
+profileOpenBtn.addEventListener('click', function() { //слушатель для открытия попапа профиля
+  const userInfoValues = profileInfo.getUserInfo();
+  headingInputProfile.value = userInfoValues.title;
+  subheadingInputProfile.value = userInfoValues.subtitle;
   formProfile.resetError(profileForm); //сброс ошибок инпута при открытии формы
-  openPopup(profilePopup);
+  popupProfile.open();
 }); 
 
-//новая функция закрытия попапа, объединяющая крестики и оверлей с универсальными классами 
+//открытие попапа НОВОЙ КАРТОЧКИ с помощью классов
+const cardPopup = new PopupWithForm('.popup-item', function(formValues) {
+    console.log(formValues);
+    const newCard = new Section({ 
+      data: formValues,
+      renderer: () => {
+        /*
+      const card = new Card(item, '#elementTemplate');
+      console.log(card);
+      const cardElement = card.generateCard(); */
+      this.addItem(returnNewCard(item, '#elementTemplate'));
+      console.log(cardElement);
+      }
+    },
+    '.elements__items' // вынести в переменную
+    );
+    newCard.rendererItems();
+    
+})
 
+cardPopup.setEventListeners();
+
+buttonPlus.addEventListener('click', function() {
+  formCard.resetError(cardForm);
+  cardPopup.open();
+});
+
+
+
+//новая функция закрытия попапа, объединяющая крестики и оверлей с универсальными классами 
+/*
 popups.forEach((popup) => {  //метод forEach берет каждый попап и выполняет для него ленточную функцию
   popup.addEventListener('mousedown', (evt) => {  //слушатель для попапа с кликом мыши над элементом и функция для этого действия
       if (evt.target.classList.contains('popup_opened')) {  //если элемент, над которым кликнули мышью, содержит класс 'popup_opened'
@@ -104,9 +154,9 @@ popups.forEach((popup) => {  //метод forEach берет каждый поп
       } 
   })
 }) 
-
+*/
 //функция для отправки формы с информацией о человеке
-
+/* УЖЕ НЕ НАДО
 function addInfo(e) {
   profileTitle.textContent = headingInputProfile.value; //записать текст(код) в парный тег (<h1>) 
   profileSubtitle.textContent = subheadingInputProfile.value; //value - получить текст из input 'имя'
@@ -114,8 +164,8 @@ function addInfo(e) {
   closePopup(profilePopup); //функция для закрытия попапа после успешной отправки формы
 } 
 
-profileForm.addEventListener('submit', addInfo); //отправка формы с информацией о человеке
-
+//profileForm.addEventListener('submit', addInfo); //отправка формы с информацией о человеке
+*/
 //функция для открытия попапа по клику
 function openPopup(currentPopup) {
   LockFunction.BodyLock();
@@ -124,9 +174,10 @@ function openPopup(currentPopup) {
 }
 
 //клик по кнопке плюс для открытия попапа
+/*
 buttonPlus.addEventListener('click', function() {
   openPopup(popupItem);
-});
+}); */
 
 function returnNewCard(el, selector) {
   // Создадим экземпляр карточки
@@ -134,7 +185,7 @@ function returnNewCard(el, selector) {
   // Создаём карточку и возвращаем её
   return card.generateCard();
 }
-
+/*
 //отправка формы для новой карточки
 cardForm.addEventListener('submit', (event) => {
   const newEl = {};
@@ -147,8 +198,15 @@ cardForm.addEventListener('submit', (event) => {
   formCard.toggleButtonState(cardForm); //деактивирует кнопку сабмита после отправки формы
   closePopup(popupItem); 
 });
+*/
 
+/*
 // добавление карточек
 initialCards.forEach((item) => {
   cardsContainer.append(returnNewCard(item, '#elementTemplate'));
 }); 
+*/
+// allCardNodes - массив из новых карточек-элементов списка, полученный методом map из массива с данными картинок
+const allCardNodes = initialCards.map(item => returnNewCard(item, '#elementTemplate'));
+
+cardsContainer.append(...allCardNodes);
