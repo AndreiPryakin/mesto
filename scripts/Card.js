@@ -6,10 +6,11 @@ import {openPopup} from './index.js';
 export {Card};
 
 class Card {
-    constructor({name, link}, template) {
-        this._name = name;
-        this._link = link;
+    constructor(data, template, handleOpenPopup) {
+        this._name = data.name;
+        this._link = data.link;
         this._template = template;
+        this._handleOpenPopup = handleOpenPopup;
     }
 
     //возвращает карточку из template-шаблона
@@ -45,12 +46,13 @@ class Card {
     }
 
     //функция открытия попапа
+    /*
     _handleOpenPopup() {
         openPopup(popupElement);
         popupImage.src = this._link;
         popupImage.alt = this._name  + '. Иллюстрация на весь экран';
         popupText.textContent = this._name;
-    }
+    } */
 
     //слушатели
     _setEventListeners() {

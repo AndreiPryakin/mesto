@@ -25,6 +25,8 @@ const initialCards = [
   }
 ]; 
 
+const cards = initialCards.reverse();
+
 const profilePopup = document.querySelector('.popup-profile');
 const profileOpenBtn = document.querySelector('.profile__button-edit');
 
@@ -56,6 +58,7 @@ import {PopupWithForm} from './PopupWithForm.js';
 //import {PopupWithImage} from './PopupWithImage.js';
 import UserInfo from './UserInfo.js';
 import Section from './Section.js';
+import PopupWithImage from './PopupWithImage.js';
 
 const config = {
   inputElement: '.form__input',
@@ -70,7 +73,7 @@ formProfile.enableValidation();
 const formCard = new FormValidator(config, 'card-form');
 formCard.enableValidation();
 const LockFunction = new Lock();
-
+/*
 //функция закрытия попапа по нажатию Esc
 function closeByEsc(evt) {
   if (evt.key === ESC_CODE) {
@@ -78,16 +81,16 @@ function closeByEsc(evt) {
     closePopup(openedPopup); 
   }
 }
-
+*/
 //общая функция закрытия попапа
-
+/*
 function closePopup(currentPopup) {
   currentPopup.classList.remove('popup_opened')
   //setTimeout(unlockBody, 500); //отложенный запуск 
   setTimeout(LockFunction.BodyUnlock(), 500); //отложенный запуск 
   document.removeEventListener('keydown', closeByEsc);
 }
-
+*/
 const configUserInfo = {
   userNameSelector: '.profile__title',
   userInfoSelector: '.profile__subtitle'
@@ -99,46 +102,62 @@ const profileInfo = new UserInfo(configUserInfo);
 // по клику на кнопку редактирования создаётся новый объект по классу PopupWithForm, вторым аргументов записан коллбэк: запускается метод setUserInfo, 
 //в который попадает объект со значениями инпутов формы при отправке
 
-const popupProfile = new PopupWithForm('.popup-profile', (formData) => {
-  profileInfo.setUserInfo(formData);
-});
-
+const popupProfile = new PopupWithForm(
+  '.popup-profile', 
+  (formData) => {
+    profileInfo.setUserInfo(formData);
+  },
+  () => { formProfile.resetError(); }, //сброс ошибок формы
+  profileInfo.getUserInfo()
+  
+  );
+console.log(profileInfo.getUserInfo());
 popupProfile.setEventListeners(); //добавление слушателей для закрытия попапа
 
 profileOpenBtn.addEventListener('click', function() { //слушатель для открытия попапа профиля
-  const userInfoValues = profileInfo.getUserInfo();
+  /*const userInfoValues = profileInfo.getUserInfo();
   headingInputProfile.value = userInfoValues.title;
-  subheadingInputProfile.value = userInfoValues.subtitle;
-  formProfile.resetError(profileForm); //сброс ошибок инпута при открытии формы
+  subheadingInputProfile.value = userInfoValues.subtitle; */
+  //formProfile.resetError(profileForm); //сброс ошибок инпута при открытии формы
   popupProfile.open();
 }); 
 
+//отрисовка массива карточек по умолчанию
+const defaultCards = new Section({
+  data: cards,
+  renderer: (item) => {
+    const card = returnNewCard(item, '#elementTemplate');
+    defaultCards.addItem(card);
+  }
+},
+'.elements__items'
+); 
+
+defaultCards.rendererItems();
 
 //открытие попапа НОВОЙ КАРТОЧКИ с помощью классов 
-const cardPopup = new PopupWithForm('.popup-item', function(formValues) {  //и коллбэк сабмита
+const cardPopup = new PopupWithForm(
+  '.popup-item', 
+  function(formValues) {  //и коллбэк сабмита
+    //меняю title на name, потому что функция returnNewCard принимает объект с ключами name и link
+    formValues.name = formValues.title;
+    const card = returnNewCard(formValues, '#elementTemplate');
+    defaultCards.addItem(card);
+  }, 
+  () => { formCard.resetError(); }
+  )
 
-    const newCard = new Section({ 
-      data: formValues,
-      renderer: () => {
-
-        formValues.name = formValues.title;
-         
-        newCard.addItem(returnNewCard(formValues, '#elementTemplate'));
-      }
-    },
-    '.elements__items' // вынести в переменную
-    );
-    newCard.rendererItems();
-    
-})
-
+//установка слушателей на попап добавления карточки
 cardPopup.setEventListeners();
-
+//установка слушателя на кнопку плюс для открытия попапа карточки
 buttonPlus.addEventListener('click', function() {
-  formCard.resetError(cardForm);
   cardPopup.open();
 });
 
+// попап для показа картинки
+const imagePopup = new PopupWithImage('.popup-img');
+//слушатели
+imagePopup.setEventListeners();
 
 
 //новая функция закрытия попапа, объединяющая крестики и оверлей с универсальными классами 
@@ -166,6 +185,7 @@ function addInfo(e) {
 //profileForm.addEventListener('submit', addInfo); //отправка формы с информацией о человеке
 */
 //функция для открытия попапа по клику
+
 function openPopup(currentPopup) {
   LockFunction.BodyLock();
   currentPopup.classList.add('popup_opened');
@@ -180,7 +200,9 @@ buttonPlus.addEventListener('click', function() {
 
 function returnNewCard(el, selector) {
   // Создадим экземпляр карточки
-  const card = new Card(el, selector);
+  const card = new Card(el, selector, () => {
+    imagePopup.open(el)
+  });
   // Создаём карточку и возвращаем её
   return card.generateCard();
 }
@@ -206,6 +228,6 @@ initialCards.forEach((item) => {
 }); 
 */
 // allCardNodes - массив из новых карточек-элементов списка, полученный методом map из массива с данными картинок
-const allCardNodes = initialCards.map(item => returnNewCard(item, '#elementTemplate'));
+//const allCardNodes = initialCards.map(item => returnNewCard(item, '#elementTemplate'));
 
-cardsContainer.append(...allCardNodes);
+//cardsContainer.append(...allCardNodes);

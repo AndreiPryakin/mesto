@@ -6,16 +6,10 @@ export default class Section {
     }
 
     rendererItems() {
-        if (this._renderedItems.lenght > 1) {
-            this._renderedItems.forEach(item => {
-                this._renderer(item);
-            });
-        } else {
-            this._renderer(this._renderedItems);
-        }
-        
-              
-    }
+        this._renderedItems.forEach(item => {
+            this._renderer(item);              
+        })
+    }   
 
     addItem(element) {
         this._container.prepend(element);

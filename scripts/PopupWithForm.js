@@ -1,12 +1,14 @@
 import {Popup} from './Popup.js';
 
 class PopupWithForm extends Popup {
-    constructor(popupSelector, onSubmit) {
+    constructor(popupSelector, onSubmit, resetError, getValuesCallback = null) {
         super(popupSelector);
         this._popupSelector = popupSelector;
         this._onSubmit = onSubmit;
         this._form = this._popup.querySelector('.form');
         this._inputList = this._form.querySelectorAll('.form__input');
+        this._resetError = resetError;
+        this._getValues = getValuesCallback;
     }
 
     //собирает данные со всех полей формы
@@ -18,13 +20,15 @@ class PopupWithForm extends Popup {
 
         return this._formValues;
     }
-   
+
     //записывает имеющиеся данные со страницы в поля формы при открытии попапа
-    _setInputValues(userInfoValues) {
-        this._userInfoValues = Object.values(userInfoValues); //оставляет массив со значением поля title и subtitle в профиле
+    _setInputValues() {
+        this._values = Object.values(this._getValues);
         this._inputList.forEach((input, index) => {
-            input.value = this._userInfoValues[index]; //forEach принимает инпут и его индекс, присваивает полям формы данные из профиля со страницы
+            //this._values[index] = input.value;
+            input.value = this._values[index]
         });
+        console.log(this._values);
     }
    
     setEventListeners() {
@@ -37,6 +41,14 @@ class PopupWithForm extends Popup {
         });
     }
     
+    open() {
+        this._setInputValues();        
+        this._resetError();   
+        super.open();
+        
+             
+    }
+
     close() {
         super.close();
         this._form.reset();
